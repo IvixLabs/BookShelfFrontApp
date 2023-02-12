@@ -1,0 +1,17 @@
+<div class="field">
+    <label>First name</label>
+    <input type="text" pInputText name="firstName" [appServerSide]="errors$" #firstNameField="ngModel" [(ngModel)]="item.firstName" required autofocus/>
+    <small *ngIf="firstNameField.control.errors?.serverSide">{{firstNameField.control.errors.serverSide}}</small>
+</div>
+<div class="field">
+    <label>Middle name</label>
+    <input type="text" pInputText name="middleName" [appServerSide]="errors$" #middleNameField="ngModel" [(ngModel)]="item.middleName"/>
+    <small *ngIf="middleNameField.control.errors?.serverSide">{{middleNameField.control.errors.serverSide}}</small>
+</div>
+
+<div class="field">
+    <label>Last name</label>
+    <input type="text" pInputText name="lastName" [appServerSide]="errors$" #lastNameField="ngModel" [(ngModel)]="item.lastName" required/>
+    <small *ngIf="lastNameField.control.errors?.serverSide">{{lastNameField.control.errors.serverSide}}</small>
+</div>
+

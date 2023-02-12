@@ -1,0 +1,43 @@
+<!--<form>-->
+<!--    <div class="field">-->
+<!--        <label htmlFor="name">Login</label>-->
+<!--        <input pInputText name="name" type="text"-->
+<!--               (ngModelChange)="update()"-->
+<!--               [(ngModel)]="authModel.login"/>-->
+<!--    </div>-->
+
+<!--    <div class="field">-->
+<!--        <label htmlFor="email">Password</label>-->
+<!--        <input pInputText name="email" type="text"-->
+<!--               (ngModelChange)="update()"-->
+<!--               [(ngModel)]="authModel.password"/>-->
+<!--    </div>-->
+
+<!--    <button pButton label="Submit" (click)="save()"></button>-->
+<!--</form>-->
+
+<div class="col-12">
+    <label>Username</label>
+    <div class="input-wrapper">
+        <input type="text" name="login" autocomplete="off"
+               (ngModelChange)="update()"
+               [(ngModel)]="authModel.login" pInputText>
+        <img src="assets/layout/images/login/user.png" class="user-icon">
+    </div>
+</div>
+<div class="col-12">
+    <label>Password</label>
+    <div class="input-wrapper">
+        <input type="password" name="password"
+               (ngModelChange)="update()"
+               [(ngModel)]="authModel.password"
+               autocomplete="off" pInputText>
+        <img src="assets/layout/images/login/lock.png" class="lock-icon">
+    </div>
+</div>
+<div class="col-12 chkbox-container">
+    <a href="">Forgot password?</a>
+</div>
+<div class="col-12 button-container">
+    <button type="button" pButton label="Sign In" class="p-button-info p-button-raised" (click)="save()"></button>
+</div>

@@ -1,0 +1,24 @@
+<form>
+    <div class="field">
+        <label htmlFor="name">Name</label>
+        <input pInputText name="name" type="text"
+               (ngModelChange)="update()"
+               [(ngModel)]="registrationModel.name"/>
+    </div>
+
+    <div class="field">
+        <label htmlFor="email">Email</label>
+        <input pInputText name="email" type="text"
+               (ngModelChange)="update()"
+               [(ngModel)]="registrationModel.email"/>
+    </div>
+
+    <div class="field">
+        <label htmlFor="age">Age</label>
+        <input pInputText name="age" type="text"
+               (ngModelChange)="update()"
+               [(ngModel)]="registrationModel.age"/>
+    </div>
+
+    <button pButton label="Submit" (click)="save()"></button>
+</form>

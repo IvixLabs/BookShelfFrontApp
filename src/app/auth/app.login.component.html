@@ -1,0 +1,13 @@
+<div class="login-body">
+
+    <div class="login-panel p-fluid">
+        <div class="grid grid-nogutter">
+            <div class="col-12 logo-container">
+                <img src="assets/layout/images/logo-gray.png" class="logo">
+                <img src="assets/layout/images/login/icon-login.png" class="login-icon" >
+                <h2>Welcome to Paradise</h2>
+            </div>
+            <app-auth-form style="width:100%" [authModel]="authModel$ | async" (updated)="onAuthUpdate()" (saved)="onAuthSave()" ></app-auth-form>
+        </div>
+    </div>
+</div>

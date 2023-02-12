@@ -1,0 +1,41 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>Test Page</h4>
+            <p>Hello from test page</p>
+            <p *ngIf="token$ | async">
+                <p-button label="Fetch" (click)="fetchData()"></p-button>
+            </p>
+        </div>
+    </div>
+    <div class="col-12" *ngIf="registrationModel$| async">
+        <div class="card">
+            <div class="card p-fluid">
+
+                <h5>Vertical</h5>
+                <p>{{(registrationModel$| async).name}}</p>
+
+                <app-registration-form
+                    [registrationModel]="registrationModel$| async"
+                    (saved)="onSave()"
+                    (updated)="onUpdate()"
+                ></app-registration-form>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-12" *ngIf="authModel$| async">
+        <div class="card">
+            <div class="card p-fluid">
+
+                <h5>Login</h5>
+                <app-auth-form
+                    [authModel]="authModel$| async"
+                    (saved)="onAuthSave()"
+                    (updated)="onAuthUpdate()"
+                ></app-auth-form>
+
+            </div>
+        </div>
+    </div>
+</div>
