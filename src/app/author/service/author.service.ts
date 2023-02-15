@@ -25,6 +25,13 @@ export class AuthorService {
 
     }
 
+    getAuthorSuggestions(first: number, rows: number, filters: Map<string, string>): Observable<any> {
+        return this.authState.getToken$()
+            .pipe(take(1))
+            .pipe(switchMap(token => this.authorApi.getAuthorSuggestions(token, first, rows, filters)))
+
+    }
+
     deleteAuthor(authorId: string): Observable<any> {
         return this.authState.getToken$()
             .pipe(take(1))

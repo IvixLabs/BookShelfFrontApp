@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {AppComponent} from './app.component';
-import {AppMainComponent} from './app.main.component';
+import {Component} from '@angular/core'
+import {AppComponent} from './app.component'
+import {AppMainComponent} from './app.main.component'
+import {AuthFacade} from './auth/facade/auth.facade'
 
 @Component({
     selector: 'app-topbar',
@@ -8,6 +9,13 @@ import {AppMainComponent} from './app.main.component';
 })
 export class AppTopBarComponent {
 
-    constructor(public app: AppComponent, public appMain: AppMainComponent) {}
+    constructor(
+        public app: AppComponent,
+        public appMain: AppMainComponent,
+        private authService: AuthFacade
+    ) {}
 
+    logout() {
+        this.authService.logout()
+    }
 }

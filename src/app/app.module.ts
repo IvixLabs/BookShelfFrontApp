@@ -156,7 +156,6 @@ import {AppLoginComponent} from './auth/app.login.component'
 import {AuthGuard} from './auth/auth.guard'
 import {BookPageComponent} from './book/book-page.component'
 import {BookApi} from './book/api/book.api'
-import {BookFacade} from './book/facade/book.facade'
 import {LocalService} from './shared/local.service'
 import {UnauthorizedInterceptor} from './auth/unauthorized.interceptor'
 import {BookFormComponent} from './book/book-form.component'
@@ -167,6 +166,8 @@ import {AuthorService} from './author/service/author.service'
 import {AuthorApi} from './author/author.api'
 import {BlockUIModule} from 'primeng/blockui'
 import {ProgressSpinnerModule} from 'primeng/progressspinner'
+import {BookService} from './book/service/book.service'
+import {HomePageComponent} from './home/home-page.component'
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -312,13 +313,14 @@ FullCalendarModule.registerPlugins([
         BookFormComponent,
         ServerSideDirective,
         AuthorPageComponent,
-        AuthorFormComponent
+        AuthorFormComponent,
+        HomePageComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService, RegistrationFacade, RegistrationState,
-        AuthState, AuthFacade, AuthGuard, BookApi, BookFacade, LocalService,
+        AuthState, AuthFacade, AuthGuard, BookApi, BookService, LocalService,
         AuthorService, AuthorApi,
         {
             provide: HTTP_INTERCEPTORS,

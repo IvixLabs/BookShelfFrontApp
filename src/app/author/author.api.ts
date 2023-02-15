@@ -40,11 +40,29 @@ export class AuthorApi {
             params = params.set(k, v)
         })
 
-        console.log(params.toString())
-
         return this.http
             .get<any>(
                 'http://api.dashskel.loc/api/authors',
+                {headers, params}
+            )
+    }
+
+    getAuthorSuggestions(token: string, first: number, rows: number, filters: Map<string, string>) {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            accept: 'application/json',
+            authorization: `Bearer ${token}`
+        })
+
+        let params = new HttpParams()
+
+        filters.forEach((v, k) => {
+            params = params.set(k, v)
+        })
+
+        return this.http
+            .get<any>(
+                'http://api.dashskel.loc/api/authors/suggestions',
                 {headers, params}
             )
     }

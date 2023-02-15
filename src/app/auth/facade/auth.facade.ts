@@ -90,4 +90,9 @@ export class AuthFacade {
             })
     }
 
+    logout() {
+        this.resetToken()
+        this.router.navigate(['/login'])
+    }
+
 }

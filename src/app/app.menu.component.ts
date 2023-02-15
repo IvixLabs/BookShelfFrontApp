@@ -29,6 +29,7 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Author', icon: PrimeIcons.FILE, routerLink: ['/authors']}
                 ]
             },
+            /*
             {
                 label: 'UI Kit', icon: 'pi pi-fw pi-star-fill', routerLink: ['/uikit'], badge: 8,
                 items: [
@@ -147,6 +148,7 @@ export class AppMenuComponent implements OnInit {
                     }
                 ]
             }
+            */
         ]
     }
 }
