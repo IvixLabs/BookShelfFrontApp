@@ -168,6 +168,7 @@ import {BlockUIModule} from 'primeng/blockui'
 import {ProgressSpinnerModule} from 'primeng/progressspinner'
 import {BookService} from './book/service/book.service'
 import {HomePageComponent} from './home/home-page.component'
+import {AuthApi} from './auth/auth.api'
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -321,7 +322,7 @@ FullCalendarModule.registerPlugins([
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService, RegistrationFacade, RegistrationState,
         AuthState, AuthFacade, AuthGuard, BookApi, BookService, LocalService,
-        AuthorService, AuthorApi,
+        AuthorService, AuthorApi, AuthApi,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: UnauthorizedInterceptor,

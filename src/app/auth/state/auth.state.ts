@@ -11,8 +11,23 @@ export class AuthState {
 
     private lastUrl$ = new BehaviorSubject<string>(undefined)
 
+    private lastError$ = new BehaviorSubject<string>(undefined)
+
+
+    getLastError$() {
+        return this.lastError$.asObservable()
+    }
+
+    setLastError(error: string) {
+        this.lastError$.next(error)
+    }
+
     getAuthModel$() {
         return this.authModel$.asObservable()
+    }
+
+    getAuthModel() {
+        return this.authModel$.getValue()
     }
 
     setAuthModel(authModel: AuthModel) {

@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {AuthModel} from './model/auth.model'
+import {AuthFacade} from './facade/auth.facade'
+import {Observable} from 'rxjs'
 
 @Component({
     templateUrl: './auth-form.component.html',
@@ -16,12 +18,19 @@ export class AuthFormComponent implements OnInit {
     @Output()
     updated = new EventEmitter()
 
+    lastError$: Observable<string>
+
+    constructor(private authFacade: AuthFacade) {
+        this.lastError$ = authFacade.getLastError$()
+    }
+
     save() {
         this.saved.emit()
     }
 
     update() {
         this.updated.emit()
+        this.authFacade.resetLastError()
     }
 
     ngOnInit(): void {

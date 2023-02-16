@@ -1,17 +1,27 @@
 import {Injectable} from '@angular/core'
-import {combineLatest, combineLatestWith, take} from 'rxjs'
+import {catchError, take} from 'rxjs'
 import {AuthState} from '../state/auth.state'
 import {AuthModel} from '../model/auth.model'
 import {Router} from '@angular/router'
 import {LocalService} from '../../shared/local.service'
+import {AuthApi} from '../auth.api'
 
 @Injectable()
 export class AuthFacade {
 
     constructor(
+        private authApi: AuthApi,
         private authState: AuthState,
         private router: Router,
         private localService: LocalService) {
+    }
+
+    getLastError$() {
+        return this.authState.getLastError$()
+    }
+
+    resetLastError() {
+        this.authState.setLastError(undefined)
     }
 
     getAuthModel$() {
@@ -61,32 +71,28 @@ export class AuthFacade {
     }
 
     login() {
-        combineLatest([
-            this.authState.getAuthModel$(),
-        ])
-            .pipe(take(1))
-            .subscribe(v => {
-                const [auth] = v
+        console.log('Begin auth')
+        const auth = this.authState.getAuthModel()
+        this.authApi
+            .getAuthToken(auth)
+            .pipe(catchError(err => {
+                console.log('Catch error')
+                console.log(err)
+                this.authState.setLastError('Wrong credentials')
+                throw err
+            }))
+            .subscribe(res => {
+                if (res) {
+                    this.authState.setToken(res.token)
+                    this.localService.saveData('authToken', res.token)
 
-                fetch('http://api.dashskel.loc/auth', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(auth)
-                })
-                    .then(response => response.json())
-                    .then(json => {
-                        this.authState.setToken(json.token)
-                        this.localService.saveData('authToken', json.token)
-
-                        const lastUrl = this.getLastUrl()
-                        if (lastUrl) {
-                            this.router.navigate([lastUrl])
-                        } else {
-                            this.router.navigate(['/'])
-                        }
-                    })
+                    const lastUrl = this.getLastUrl()
+                    if (lastUrl) {
+                        this.router.navigate([lastUrl])
+                    } else {
+                        this.router.navigate(['/'])
+                    }
+                }
             })
     }
 

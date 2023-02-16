@@ -13,16 +13,14 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         return next.handle(request)
             .pipe(catchError((error: HttpErrorResponse) => {
-                if (error.error.code === 401) {
-                    this.authFacade.resetToken()
-                    this.authFacade.setLastUrl(this.router.url)
-                    this.router.navigate(['/login'])
-                    //return of(undefined)
-                } else {
-                    //return throwError(() => error)
+                if (!error.url.endsWith('/auth')) {
+                    if (error.error.code === 401) {
+                        this.authFacade.resetToken()
+                        this.authFacade.setLastUrl(this.router.url)
+                        this.router.navigate(['/login'])
+                    }
                 }
-
-                return throwError(() => error)
+                throw error
             }))
     }
 }
