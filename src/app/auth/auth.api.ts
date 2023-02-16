@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {HttpClient, HttpHeaders} from '@angular/common/http'
-
+import {environment} from '../../environments/environment'
 @Injectable()
 export class AuthApi {
 
@@ -16,7 +16,7 @@ export class AuthApi {
 
         return this.http
             .post<any>(
-                'http://api.dashskel.loc/auth',
+                environment.apiHost + '/auth',
                 authDto,
                 {headers}
             )

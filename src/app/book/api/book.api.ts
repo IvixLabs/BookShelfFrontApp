@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http'
 import {tap} from 'rxjs'
 import {BookFormModel} from '../model/book-form.model'
 import {AuthorFormDto} from '../../author/dto/author-form.dto'
+import {environment} from '../../../environments/environment'
 
 @Injectable()
 export class BookApi {
@@ -19,7 +20,7 @@ export class BookApi {
 
         return this.http
             .get<BookFormModel>(
-                'http://api.dashskel.loc/api/books/' + id,
+                environment.apiHost + '/api/books/' + id,
                 {headers}
             )
     }
@@ -37,7 +38,7 @@ export class BookApi {
 
         return this.http
             .get<any>(
-                'http://api.dashskel.loc/api/books',
+                environment.apiHost + '/api/books',
                 {headers, params}
             )
             .pipe(tap(res => console.log(res)))
@@ -52,7 +53,7 @@ export class BookApi {
 
         return this.http
             .post<BookFormModel>(
-                'http://api.dashskel.loc/api/books',
+                environment.apiHost + '/api/books',
                 book,
                 {headers}
             )
@@ -67,7 +68,7 @@ export class BookApi {
 
         return this.http
             .put<BookFormModel>(
-                'http://api.dashskel.loc/api/books/' + book.id,
+                environment.apiHost + '/api/books/' + book.id,
                 book,
                 {headers}
             )
@@ -82,7 +83,7 @@ export class BookApi {
 
         return this.http
             .delete<AuthorFormDto>(
-                'http://api.dashskel.loc/api/books/' + bookId,
+                environment.apiHost + '/api/books/' + bookId,
                 {headers}
             )
 

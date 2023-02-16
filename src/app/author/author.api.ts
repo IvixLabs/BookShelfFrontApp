@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http'
-import {tap} from 'rxjs'
+import {environment} from '../../environments/environment'
 import {AuthorFormDto} from './dto/author-form.dto'
 
 @Injectable()
@@ -19,7 +19,7 @@ export class AuthorApi {
 
         return this.http
             .get<AuthorFormDto>(
-                'http://api.dashskel.loc/api/authors/' + id,
+                environment.apiHost + '/api/authors/' + id,
                 {headers}
             )
     }
@@ -42,7 +42,7 @@ export class AuthorApi {
 
         return this.http
             .get<any>(
-                'http://api.dashskel.loc/api/authors',
+                environment.apiHost + '/api/authors',
                 {headers, params}
             )
     }
@@ -62,7 +62,7 @@ export class AuthorApi {
 
         return this.http
             .get<any>(
-                'http://api.dashskel.loc/api/authors/suggestions',
+                environment.apiHost + '/api/authors/suggestions',
                 {headers, params}
             )
     }
@@ -76,7 +76,7 @@ export class AuthorApi {
 
         return this.http
             .post<AuthorFormDto>(
-                'http://api.dashskel.loc/api/authors',
+                environment.apiHost + '/api/authors',
                 author,
                 {headers}
             )
@@ -91,7 +91,7 @@ export class AuthorApi {
 
         return this.http
             .put<AuthorFormDto>(
-                'http://api.dashskel.loc/api/authors/' + author.id,
+                environment.apiHost + '/api/authors/' + author.id,
                 author,
                 {headers}
             )
@@ -107,7 +107,7 @@ export class AuthorApi {
 
         return this.http
             .delete<AuthorFormDto>(
-                'http://api.dashskel.loc/api/authors/' + authorId,
+                environment.apiHost + '/api/authors/' + authorId,
                 {headers}
             )
 
