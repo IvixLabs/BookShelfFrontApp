@@ -32,6 +32,8 @@
                         ],
                         "styles": [
                             "src/styles.scss",
+                            "src/assets/css/layout-blue.scss",
+                            "src/assets/css/layout-default.scss",
                             "./node_modules/@fullcalendar/common/main.css",
                             "./node_modules/@fullcalendar/daygrid/main.css",
                             "./node_modules/@fullcalendar/timegrid/main.css"
