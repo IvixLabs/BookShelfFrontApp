@@ -9,10 +9,19 @@ export class AuthState {
 
     private token$ = new BehaviorSubject<string>(undefined)
 
+    private tokenDate$ = new BehaviorSubject<Date>(undefined)
+
     private lastUrl$ = new BehaviorSubject<string>(undefined)
 
     private lastError$ = new BehaviorSubject<string>(undefined)
 
+    getTokenDate(): Date | undefined {
+        return this.tokenDate$.getValue()
+    }
+
+    setTokenDate(date: Date | undefined) {
+        this.tokenDate$.next(date)
+    }
 
     getLastError$() {
         return this.lastError$.asObservable()

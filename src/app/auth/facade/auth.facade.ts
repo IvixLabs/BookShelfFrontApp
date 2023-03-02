@@ -32,7 +32,7 @@ export class AuthFacade {
         return this.authState.getToken$()
     }
 
-    getToken() {
+    getToken(): string | undefined {
         let token = this.authState.getToken()
         if (token === undefined) {
             const savedAuthToken = this.localService.getData('authToken')
@@ -45,9 +45,38 @@ export class AuthFacade {
         return token
     }
 
+    getTokenDate(): Date | undefined {
+        let tokenDate = this.authState.getTokenDate()
+        if (tokenDate === undefined) {
+            const savedAuthTokenDate = this.localService.getData('authTokenDate')
+            if (savedAuthTokenDate !== undefined) {
+                tokenDate = new Date(Number.parseInt(savedAuthTokenDate, 10))
+                this.authState.setTokenDate(tokenDate)
+            }
+        }
+
+        return tokenDate
+    }
+
+    isTokenExpired(): boolean {
+        const now = new Date()
+        const tokenDate = this.getTokenDate()
+
+        if (tokenDate === undefined) {
+            return true
+        }
+
+        const diff = Math.round((now.getTime() - tokenDate.getTime()) / 1000)
+
+        return diff > 3600
+    }
+
     resetToken() {
         this.localService.removeData('authToken')
         this.authState.setToken(undefined)
+
+        this.localService.removeData('authDate')
+        this.authState.setTokenDate(undefined)
     }
 
     getLastUrl() {
@@ -71,7 +100,6 @@ export class AuthFacade {
     }
 
     login() {
-        console.log('Begin auth')
         const auth = this.authState.getAuthModel()
         this.authApi
             .getAuthToken(auth)
@@ -83,8 +111,11 @@ export class AuthFacade {
             }))
             .subscribe(res => {
                 if (res) {
+                    this.authState.setTokenDate(new Date())
                     this.authState.setToken(res.token)
-                    this.localService.saveData('authToken', res.token)
+
+                    this.localService.saveData('authToken', this.authState.getToken())
+                    this.localService.saveData('authTokenDate', this.authState.getTokenDate().getTime().toString())
 
                     const lastUrl = this.getLastUrl()
                     if (lastUrl) {

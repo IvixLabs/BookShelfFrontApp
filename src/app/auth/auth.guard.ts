@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        if (this.authFacade.getToken()) {
+        if (this.authFacade.getToken() && !this.authFacade.isTokenExpired()) {
             return true
         }
         this.authFacade.setLastUrl(state.url)
